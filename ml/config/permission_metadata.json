@@ -1,0 +1,11 @@
+{
+  "camera": {    
+    "color": "#EF4444",
+    "display_name": "Camera Access"
+  },
+
+  "location": {    
+    "color": "#F97316",
+    "display_name": "Location Access"
+  }
+}
