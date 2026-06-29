@@ -1,0 +1,37 @@
+{
+  "device_permissions": [
+    "camera",
+    "microphone",
+    "location",
+    "contacts",
+    "photos",
+    "storage",
+    "notifications",
+    "biometrics"
+  ],
+
+  "privacy": [
+    "data_collection",
+    "data_sharing",
+    "third_party_sharing",
+    "tracking",
+    "cookies",
+    "advertising"
+  ],
+
+  "payments": [
+    "subscription",
+    "auto_renewal",
+    "refund"
+  ],
+
+  "account": [
+    "account_deletion",
+    "account_termination"
+  ],
+
+  "legal": [
+    "arbitration",
+    "liability"
+  ]
+}
