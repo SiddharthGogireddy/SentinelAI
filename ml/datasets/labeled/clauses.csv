@@ -1,0 +1,11 @@
+id,company,document_type,clause,permissions
+1,Discord,Privacy Policy,"We may access your microphone during voice calls.",microphone
+2,Discord,Privacy Policy,"We may access your camera during video calls.",camera
+3,Spotify,Privacy Policy,"We collect your location to recommend nearby concerts.",location
+4,Netflix,Privacy Policy,"We use cookies to personalize your experience.",cookies
+5,ExampleApp,Terms & Conditions,"Your subscription automatically renews every month unless cancelled.",auto_renewal
+6,ExampleApp,Privacy Policy,"We may share your personal information with advertising partners.",third_party_sharing
+7,ExampleApp,Privacy Policy,"We may collect information about your device and browser.",device_fingerprinting
+8,ExampleApp,Privacy Policy,"We may request permission to access your photos.",photos
+9,ExampleApp,Privacy Policy,"We may access your contacts to help you find friends.",contacts
+10,ExampleApp,Privacy Policy,"We may access your clipboard to improve the user experience.",clipboard
