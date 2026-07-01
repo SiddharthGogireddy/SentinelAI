@@ -1,0 +1,32 @@
+{
+  "camera": {
+    "display_name": "Camera Access",
+    "examples": [
+      "Access your device camera.",
+      "Capture images using your device.",
+      "Take photos.",
+      "Record videos.",
+      "Scan QR codes using the camera."
+    ]
+  },
+
+  "microphone": {
+    "display_name": "Microphone Access",
+    "examples": [
+      "Access your microphone.",
+      "Record audio.",
+      "Capture voice input.",
+      "Use the microphone during calls."
+    ]
+  },
+
+  "location": {
+    "display_name": "Location Access",
+    "examples": [
+      "Access your location.",
+      "Collect GPS coordinates.",
+      "Determine your geographical location.",
+      "Provide nearby recommendations."
+    ]
+  }
+}
