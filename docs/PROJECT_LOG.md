@@ -109,3 +109,43 @@ Next:
 ### Status
 
 Day 2 Completed
+# Day 3 — Data Preprocessing Pipeline
+
+**Date:** 2026-07-02
+
+## Completed
+
+- Finalized backend folder structure.
+- Added dedicated loaders for different input sources.
+- Implemented text loading for `.txt` privacy policy documents.
+- Built the first preprocessing pipeline.
+- Implemented an initial clause splitter.
+- Improved clause splitting by filtering common section headings.
+- Created the raw → processed → labeled dataset workflow.
+- Added sample datasets for Discord:
+  - Privacy Policy
+  - Cookie Policy
+  - Terms of Service
+- Fixed CSV formatting issues for the labeled dataset.
+- Established the initial permission taxonomy for annotation.
+
+## Challenges
+
+- Sentence splitting produced incorrect clauses for legal documents.
+- Section headings were incorrectly treated as clauses.
+- CSV parsing failed due to improperly formatted multi-label entries.
+- Sentence-transformer baseline produced relatively low similarity scores (~0.41), indicating that semantic similarity alone is insufficient for permission detection.
+
+## Decisions
+
+- Preserve raw documents separately from processed data.
+- Use `.txt` files as the intermediate format during development.
+- Delay model training until a sufficiently large, real-world labeled dataset is available.
+- Build the dataset from real privacy policies instead of synthetic examples.
+
+## Next Steps
+
+- Improve clause splitting for legal documents.
+- Expand the dataset using additional companies.
+- Build the annotation workflow.
+- Begin training the first multi-label classifier after collecting sufficient labeled data.
