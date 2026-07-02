@@ -1,0 +1,14 @@
+We may receive information from cookies (small text files placed on your computer or device) and similar technologies. First-party cookies are placed by us (and our third-party service providers) and allow you to use the services and help us analyze and improve your experience and the services. You can control cookies as described in the “How to control your privacy” section of Discord’s Privacy Policy. The services use the following types of cookies:
+
+Strictly Necessary Cookies: These are required for services to function and to meet our legal obligations. If you try to use tools to disable these cookies, parts of the services may not work properly.
+Functional Cookies: These help us provide enhanced functionality on the services like remembering language preferences. Disabling these could affect some service functionality.
+Performance Cookies: These allow us or our third-party analytics providers to learn how you and others use and engage with the services so we can understand and improve them.
+Manage cookies
+To control how information is collected and used from cookies on the services, you can take one or more of the following steps.
+
+You can disable and manage some cookies through your browser settings. You will need to manage your settings for each browser you use. You can find instructions for how to manage Cookies in popular browsers such as Internet Explorer, Firefox, Chrome, Safari (iOS), Safari (Mac), and Opera.
+To disable analytics cookies, you can use the browser controls discussed above or, for certain providers, you can use their individual opt-out mechanisms, such as Google Analytics Opt-Out.
+Your mobile device may also include browser settings to manage the use of cookies. Your device may also have settings to control the collection and use of information in your apps.
+Third party groups also enable you to limit how cookies are used for advertising purposes by participating third parties. You can learn more at Network Advertising Initiative, the Digital Advertising Alliance, and for users in the EU, the European Interactive Digital Advertising Alliance.
+Depending on where you are accessing our services, you may be able to adjust your cookie preferences at any time through a cookies banner or by selecting “Cookie Settings” from the footer or menu on our website.
+If you disable or remove cookies, some parts of the services may not function properly. Information may be collected to remember your opt-out preferences

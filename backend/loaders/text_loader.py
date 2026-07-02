@@ -18,3 +18,10 @@ def extract_text(text: str) -> str:
 
     return text
 
+def load_text(path: str) -> str:
+    """
+    Reads a text file and returns its contents.
+    """
+
+    with open(path, "r", encoding="utf-8") as file:
+        return file.read()

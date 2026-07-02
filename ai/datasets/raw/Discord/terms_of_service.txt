@@ -1,0 +1,9 @@
+To access the services on an ongoing basis, you will need to create a Discord account. You can provide a username and password, and a way of contacting you (such as an email address and/or phone number). You’ll also need to provide your birthday. In some cases, you may be required to verify your account or provide additional information.
+
+You are responsible for the security of your account, and you agree to notify us immediately if you believe your account has been compromised. If you use a password, it must be strong, and we (strongly) recommend that you use that password only for your Discord account and that you enable two-factor authentication.
+
+You must always provide accurate information to Discord and maintain the accuracy of the information associated with your account. We may assume that any communications we’ve received from your account or the associated contact information have been made by you, and that any purchases made using your account were made by you.
+
+If you get locked out of your account, we’ll need to contact you at the email or phone number associated with your account. If your account is compromised or you no longer have access to your email account or phone number, we may not be able to restore your access to your account or the servers you’ve created.
+
+You agree not to license, sell, lend, or transfer your account, Discord username, vanity URL, or other unique identifier without our prior written approval. We also reserve the right to delete, change, or reclaim your username, URL, or other identifier.
