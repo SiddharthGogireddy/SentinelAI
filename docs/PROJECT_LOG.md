@@ -149,3 +149,34 @@ Day 2 Completed
 - Expand the dataset using additional companies.
 - Build the annotation workflow.
 - Begin training the first multi-label classifier after collecting sufficient labeled data.
+# Day 5 — Annotation Assistant & Risk Engine
+
+**Date:** 2026-07-03
+
+## Completed
+
+- Improved the annotation workflow.
+- Added label validation.
+- Designed the rule-based label suggestion system.
+- Implemented the initial Risk Engine architecture.
+- Created a centralized risk database for permissions.
+- Standardized module interfaces for future integration.
+- Decided to postpone ML training until a larger labeled dataset is available.
+
+## Challenges
+
+- Manual annotation remains time-consuming.
+- Current dataset is too small for effective supervised learning.
+- Clause splitting still needs refinement for some legal documents.
+
+## Decisions
+
+- Use rule-based suggestions before ML predictions.
+- Keep the Risk Engine independent of the permission detector.
+- Build a complete rule-based MVP before introducing machine learning.
+
+## Next Steps
+
+- Integrate all modules into a single analyzer.
+- Build the browser extension workflow.
+- Expand the labeled dataset using multiple companies.

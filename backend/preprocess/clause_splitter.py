@@ -1,14 +1,51 @@
 import re
 
 
+def is_heading(text: str) -> bool:
+    text = text.strip()
+
+    if not text:
+        return True
+
+    # Remove trailing colon or period
+    cleaned = text.rstrip(".:")
+
+    words = cleaned.split()
+
+    # Headings are usually short
+    if len(words) <= 5:
+
+        # They usually don't contain commas
+        if "," not in cleaned:
+
+            # They usually don't begin like sentences
+            sentence_starters = (
+                "We",
+                "You",
+                "Your",
+                "Our",
+                "This",
+                "These",
+                "Those",
+                "If",
+                "For",
+                "When",
+                "While",
+                "Because",
+                "Since",
+                "To"
+            )
+
+            if not cleaned.startswith(sentence_starters):
+                return True
+
+    return False
+
 
 def split_into_clauses(text: str) -> list[str]:
     """
     Splits a privacy policy into meaningful clauses.
     """
-
-    if not text:
-        return []
 
     text = text.replace("\r\n", "\n")
 
@@ -23,56 +60,9 @@ def split_into_clauses(text: str) -> list[str]:
         if not paragraph:
             continue
 
-        # Skip headings
         if is_heading(paragraph):
             continue
 
-        # Split long paragraphs into sentences
-        sentences = re.split(r'(?<=[.!?])\s+', paragraph)
-
-        for sentence in sentences:
-
-            sentence = sentence.strip()
-
-            if len(sentence) > 15:
-                clauses.append(sentence)
+        clauses.append(paragraph)
 
     return clauses
-
-    return clauses
-def is_heading(text: str) -> bool:
-    text = text.strip()
-
-    # Empty
-    if not text:
-        return True
-
-    # Most headings are short
-    if len(text.split()) <= 5:
-
-        # Headings usually don't contain commas
-        if "," not in text:
-
-            # Headings usually don't start with these words
-            starts = (
-                "We ",
-                "You ",
-                "Your ",
-                "If ",
-                "For ",
-                "This ",
-                "These ",
-                "Those ",
-                "When ",
-                "Where ",
-                "How ",
-                "Why ",
-                "In ",
-                "On ",
-                "At "
-            )
-
-            if not text.startswith(starts):
-                return True
-
-    return False
