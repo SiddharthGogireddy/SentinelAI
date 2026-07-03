@@ -1,4 +1,4 @@
-from risk_levels import RISK_DATABASE
+from backend.risk.risk_levels import RISK_DATABASE
 
 
 def build_alert(labels):

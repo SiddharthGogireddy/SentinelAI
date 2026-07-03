@@ -180,3 +180,36 @@ Day 2 Completed
 - Integrate all modules into a single analyzer.
 - Build the browser extension workflow.
 - Expand the labeled dataset using multiple companies.
+# Day 6 — Backend API & End-to-End Integration
+
+**Date:** 2026-07-03
+
+## Completed
+
+- Created the FastAPI backend application.
+- Added the `/api/analyze` endpoint.
+- Connected the analyzer with the backend API.
+- Integrated the clause splitter, permission detector, and risk engine.
+- Successfully tested the complete analysis pipeline using FastAPI Swagger UI.
+- Created the initial `requirements.txt`.
+- Fixed import issues across backend modules.
+- Configured CORS for frontend integration.
+
+## Challenges
+
+- Resolved multiple package import issues after restructuring the project.
+- Fixed broken `uvicorn` launcher caused by an outdated Python installation.
+- Standardized backend package imports.
+
+## Decisions
+
+- Keep the backend modular with clearly separated API, services, preprocessing, and risk components.
+- Use FastAPI as the backend framework.
+- Keep the rule-based permission detector until a sufficiently large labeled dataset is available.
+
+## Next Steps
+
+- Build the React frontend.
+- Connect the frontend to the `/api/analyze` endpoint.
+- Display analysis results using reusable UI components.
+- Improve clause splitting for multi-sentence pasted text.
