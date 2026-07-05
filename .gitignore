@@ -25,3 +25,6 @@ ml/datasets/raw/
 
 # Logs
 *.log
+
+# Node
+node_modules/
