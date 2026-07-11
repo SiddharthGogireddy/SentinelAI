@@ -1,6 +1,11 @@
 import { FileText, Upload, Globe } from "lucide-react";
 
-function InputCard() {
+function InputCard({
+    text,
+    setText,
+    loading,
+    onAnalyze,
+}) {
     return (
         <div className="rounded-2xl
 border
@@ -34,6 +39,8 @@ p-6">
             {/* Text Area */}
 
             <textarea
+                 value={text}
+    onChange={(e) => setText(e.target.value)}
                 rows={12}
                 placeholder="Paste a Privacy Policy or Terms of Service..."
                 className="
@@ -56,7 +63,9 @@ p-6">
             <div className="mt-6 flex justify-center">
 
                 <button
-    className="
+                    onClick={onAnalyze}
+                    
+                    className="
 rounded-xl
 bg-emerald-500
 hover:bg-emerald-400
@@ -69,6 +78,7 @@ duration-300
 shadow-lg
 hover:shadow-emerald-500/30
 "                >
+                {loading ? "Analyzing..." : "Analyze Policy"}
                     Analyze
                 </button>
 
