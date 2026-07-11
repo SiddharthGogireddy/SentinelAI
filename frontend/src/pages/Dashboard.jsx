@@ -23,7 +23,7 @@ function Dashboard() {
 
     try {
         const response = await analyzeText(text);
-
+        console.log(response);
         setResults(response.data.results);
         setSummary(response.data.summary);
 

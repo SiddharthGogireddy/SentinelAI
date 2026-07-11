@@ -1,11 +1,6 @@
 import { AlertTriangle, ShieldAlert, ShieldCheck } from "lucide-react";
 
-function SummaryCards() {
-    const summary = {
-        high: 2,
-        medium: 0,
-        low: 1,
-    };
+function SummaryCards({ summary }) {
 
     return (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
