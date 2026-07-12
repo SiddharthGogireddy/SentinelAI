@@ -20,7 +20,9 @@ def analyze_text(text: str) -> dict:
 
         labels = suggest_labels(clause)
 
-        alerts = build_alert(labels,clause)
+        alerts = build_alert(labels,evidence=clause)
+       
+       
 
         for alert in alerts:
             level = alert.get("level", "").lower()
@@ -34,8 +36,11 @@ def analyze_text(text: str) -> dict:
 
         results.append({
             "clause": clause,
+            
             "labels": labels,
             "alerts": alerts
+            
+            
         })
 
     return {
@@ -72,9 +77,11 @@ def analyze_pdf_clauses(clauses_with_pages):
 
         alerts = build_alert(
             labels,
-            evidence=clause,
-            page=page
+            evidence=clause
+            
         )
+        for alert in alerts:
+            alert["page"] = page
 
         for alert in alerts:
             level = alert["level"].lower()

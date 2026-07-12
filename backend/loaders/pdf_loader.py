@@ -3,6 +3,7 @@ from pypdf import PdfReader
 
 from backend.preprocess.clause_splitter import split_into_clauses
 
+
 async def extract_pdf_clauses(file):
     """
     Extract clauses and their page numbers from an uploaded PDF.
@@ -23,7 +24,6 @@ async def extract_pdf_clauses(file):
         clauses = split_into_clauses(page_text)
 
         for clause in clauses:
-
             clauses_with_pages.append({
                 "clause": clause,
                 "page": page_number
@@ -31,7 +31,11 @@ async def extract_pdf_clauses(file):
 
     return clauses_with_pages
 
-async def extract_pdf_clauses(file):
+
+async def extract_pdf_text(file) -> str:
+    """
+    Extract plain text from an uploaded PDF.
+    """
 
     contents = await file.read()
 
@@ -39,22 +43,13 @@ async def extract_pdf_clauses(file):
 
     reader = PdfReader(pdf_stream)
 
-    clauses_with_pages = []
+    text = ""
 
-    for page_number, page in enumerate(reader.pages, start=1):
+    for page in reader.pages:
 
-        page_text = page.extract_text() or ""
+        page_text = page.extract_text()
 
-        clauses = split_into_clauses(page_text)
+        if page_text:
+            text += page_text + "\n"
 
-        for item in clauses:
-
-            if isinstance(item, dict):
-                clause = item["clause"]
-                page = item["page"]
-        else:
-            clause = item
-            page = None
-
-            
-    return clauses_with_pages
+    return text

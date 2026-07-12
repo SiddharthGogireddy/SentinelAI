@@ -41,9 +41,9 @@ function Dashboard() {
         setLoading(true);
 
         try {
-
+            console.log("Uploading file:", file);
             const response = await uploadPDF(file);
-
+            console.log(JSON.stringify(response, null, 2));
             setResults(response.data.results);
             setSummary(response.data.summary);
 

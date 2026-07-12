@@ -1,7 +1,43 @@
 import { Shield } from "lucide-react";
-
+import { explainRisk } from "../services/api";
+import { useState } from "react";
 function RiskList({ results }) {
+    const [explanations, setExplanations] = useState({});
+    const [loadingExplanation, setLoadingExplanation] = useState({});
+    async function handleExplain(clause, labels, key) {
 
+    if (explanations[key]) return;
+
+    setLoadingExplanation(prev => ({
+        ...prev,
+        [key]: true,
+    }));
+
+    try {
+
+        const response = await explainRisk(
+            clause,
+            labels
+        );
+
+        setExplanations(prev => ({
+            ...prev,
+            [key]: response.explanation,
+        }));
+
+    } catch (error) {
+
+        console.error(error);
+
+    } finally {
+
+        setLoadingExplanation(prev => ({
+            ...prev,
+            [key]: false,
+        }));
+
+    }
+}
     if (!results.length) {
         return (
             <div className="
@@ -20,90 +56,132 @@ function RiskList({ results }) {
         );
     }
 
-    return (
-        
-        <div className="space-y-4">
+    
+   return (
+    <div className="space-y-4">
 
-            {results.flatMap(result =>
-                result.alerts.map((alert, index) => {
+        {results.flatMap(result =>
+            result.alerts.map((alert, index) => (
 
-                    const Icon = Shield;
+                <div
+                    key={index}
+                    className="
+                        rounded-2xl
+                        border border-white/10
+                        bg-white/5
+                        p-5
+                        backdrop-blur-xl
+                        transition-all
+                        duration-300
+                        hover:border-emerald-400/30
+                        hover:-translate-y-1
+                    "
+                >
+                    <div className="space-y-4">
 
-                    return (
-                        <div
-                            key={index}
-                            className="
-                                rounded-2xl
-                                border border-white/10
-                                bg-white/5
-                                p-5
-                                backdrop-blur-xl
-                                transition-all
-                                duration-300
-                                hover:border-emerald-400/30
-                                hover:-translate-y-1
-                            "
-                        >
-                            <div className="flex items-center justify-between">
+                        <div className="flex items-start justify-between">
 
-                                <div className="flex items-center gap-4">
+                            <div className="flex items-start gap-4">
 
-                                    <Icon
-                                        className="text-emerald-400"
-                                        size={22}
-                                    />
+                                <Shield
+                                    className="mt-1 text-emerald-400"
+                                    size={22}
+                                />
 
-                                    <div>
-                                        <h2 className="text-lg font-semibold">
-                                            {alert.title}
-                                        </h2>
+                                <div>
+                                    <h2 className="text-lg font-semibold">
+                                        {alert.title}
+                                    </h2>
 
-                                        <p className="text-sm text-slate-400">
-                                            {alert.message}
-                                        </p>
-                                    </div>
-                                    {alert.evidence && (
-    <div className="
-        mt-3
+                                    <p className="text-sm text-slate-400">
+                                        {alert.message}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <span
+                                className={`rounded-full px-4 py-1 text-sm font-semibold ${
+                                    alert.level === "High"
+                                        ? "bg-red-500/20 text-red-300"
+                                        : alert.level === "Medium"
+                                        ? "bg-yellow-500/20 text-yellow-300"
+                                        : "bg-emerald-500/20 text-emerald-300"
+                                }`}
+                            >
+                                {alert.level}
+                            </span>
+
+                        </div>
+
+                        {alert.evidence && (
+                            <div className="rounded-xl border border-white/5 bg-black/20 p-3">
+                                <p className="mb-2 text-xs uppercase tracking-wider text-slate-500">
+                                    Evidence
+                                </p>
+
+                                <p className="text-sm italic text-slate-300">
+                                    "{alert.evidence}"
+                                </p>
+                            </div>
+                        )}
+
+                       
+                            <div className="flex justify-start">
+   <button
+    onClick={() =>
+        handleExplain(
+            result.clause,
+            result.labels,
+            index
+        )
+    }
+    className="
         rounded-xl
-        border border-white/5
-        bg-black/20
-        p-3
+        border border-cyan-500/30
+        bg-cyan-500/10
+        px-4
+        py-2
+        text-sm
+        font-medium
+        text-cyan-300
+        transition-all
+        hover:bg-cyan-500/20
+    "
+>
+    {loadingExplanation[index]
+        ? "Generating..."
+        : explanations[index]
+        ? "Regenerate Explanation"
+        : "Explain with AI"}
+</button>
+{explanations[index] && (
+    <div className="
+        mt-4
+        rounded-xl
+        border border-cyan-500/20
+        bg-cyan-500/5
+        p-4
     ">
-        <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">
-            Evidence
+        <p className="mb-2 text-xs uppercase tracking-wider text-cyan-300">
+            AI Explanation
         </p>
 
-        <p className="text-sm italic text-slate-300">
-            "{alert.evidence}"
+        <p className="text-sm leading-relaxed text-slate-300">
+            {explanations[index]}
         </p>
     </div>
 )}
+</div>
 
-                                </div>
-                                <p className="mt-3 text-sm italic text-slate-400">
-    "{alert.evidence}"
-</p>
-                                <span
-                                    className={`rounded-full px-4 py-1 text-sm font-semibold ${
-                                        alert.level === "High"
-                                            ? "bg-red-500/20 text-red-300"
-                                            : alert.level === "Medium"
-                                            ? "bg-yellow-500/20 text-yellow-300"
-                                            : "bg-emerald-500/20 text-emerald-300"
-                                    }`}
-                                >
-                                    {alert.level}
-                                </span>
+                    </div>
+                </div>
 
-                            </div>
-                        </div>
-                    );
-                })
-            )}
+            ))
+        )}
 
-        </div>
-    );
+    </div>
+);
 }
 
 export default RiskList;

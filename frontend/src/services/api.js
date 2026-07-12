@@ -28,3 +28,14 @@ export async function uploadPDF(file) {
 
     return response.data;
 }
+export async function explainRisk(clause, labels) {
+    const response = await API.post(
+        "/explain",
+        {
+            clause,
+            labels,
+        }
+    );
+
+    return response.data;
+}

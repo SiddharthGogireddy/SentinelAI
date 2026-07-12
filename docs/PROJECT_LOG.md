@@ -252,6 +252,7 @@ Date: 2026-07-04
 - Replace hardcoded data with live API responses.
 - Add loading states during analysis.
 - Implement dynamic risk summaries and result cards.
+
 # Day 8 — Frontend Backend Integration
 
 Date: 2026-07-05
@@ -283,9 +284,8 @@ Date: 2026-07-05
       "data": {}
   }
 
----
 
-```text
+
 # Day 9 — PDF Upload & Document Analysis
 
 Date: 2026-07-06
@@ -319,6 +319,8 @@ Date: 2026-07-06
 - Attach triggering clauses to each alert.
 - Improve frontend presentation of analysis results.
 - Begin implementing multiple analysis modes.
+
+
 # Day 10 — Evidence Tracking & Multi-Mode Interface
 
 Date: 2026-07-07
@@ -355,3 +357,207 @@ Date: 2026-07-07
 - Add page number support for PDF analysis.
 - Implement PDF highlighting using PyMuPDF.
 - Build URL-based privacy policy analysis.
+
+# Day 11 — Ollama Integration & AI Explanations
+
+Date: 2026-07-12
+
+## Completed
+
+- Decided to adopt a hybrid architecture combining rule-based detection with LLM explanations.
+- Selected Ollama instead of cloud APIs to keep the system fully local and privacy preserving.
+- Chose local LLM inference to avoid API costs and external data transmission.
+- Finalized the architecture for integrating AI explanations into the existing risk pipeline.
+- Designed the `llm_explainer.py` service layer.
+- Planned integration between the rule engine and local LLM responses.
+
+## Challenges
+
+- Evaluated the tradeoff between deterministic rule-based detection and probabilistic LLM outputs.
+- Considered latency implications of local inference.
+- Designed a strategy to avoid sending every clause to the LLM unnecessarily.
+
+## Decisions
+
+- Keep rule-based permission detection as the primary detection mechanism.
+- Use Ollama only for explanation generation and contextual reasoning.
+- Send only clauses containing detected permissions to the LLM.
+- Keep the existing risk engine unchanged for consistent risk scoring.
+- Use a local model to preserve user privacy.
+
+## Selected Architecture
+
+PDF / Text / URL
+    ↓
+Clause Splitter
+    ↓
+Permission Detection
+    ↓
+Risk Engine
+    ↓
+Ollama Explanation Layer
+    ↓
+Frontend Dashboard
+
+## Planned Models
+
+Primary:
+- llama3:8b
+
+Fallback:
+- gemma3:4b
+- mistral:7b
+
+## Planned Backend Changes
+
+New file:
+backend/services/llm_explainer.py
+
+Responsibilities:
+- Generate human-readable explanations.
+- Explain why permissions were flagged.
+- Provide contextual recommendations.
+- Distinguish between normal and potentially concerning permissions.
+
+Example Output:
+
+{
+    "explanation":
+        "Camera access is commonly required for video calling features but should only be granted when necessary.",
+
+    "recommendation":
+        "Verify that camera access is restricted to active video sessions."
+}
+
+## Next Steps
+
+- Install Ollama locally.
+- Pull the selected model.
+- Implement `llm_explainer.py`.
+- Integrate explanations into `analyzer.py`.
+- Display AI explanations in `RiskList.jsx`.
+
+# Day 12 — Hybrid AI Integration with Ollama
+
+Date: 2026-07-12
+
+## Completed
+
+- Installed and configured Ollama locally.
+- Successfully connected SentinelAI with a local LLM.
+- Built the initial `llm_explainer.py` service.
+- Integrated AI explanations into the analysis pipeline.
+- Generated explanations for detected permissions such as camera and cookies.
+- Verified end-to-end communication between FastAPI and Ollama.
+- Implemented local inference without requiring external APIs.
+- Successfully tested AI explanations on sample privacy policy clauses.
+
+## Challenges
+
+- Encountered Ollama server conflicts due to an already running instance on port `11434`.
+- Fixed backend import issues while integrating the explainer service.
+- Adjusted response parsing from Ollama API responses.
+- Identified latency issues caused by generating explanations for every detected risk.
+
+## Decisions
+
+- Use local LLM inference instead of cloud APIs to preserve privacy.
+- Keep Ollama as the primary inference engine for Version 2.
+- Separate deterministic risk detection from generative explanations.
+
+## Architecture Introduced
+
+Rule Engine
+    ↓
+Detected Risks
+    ↓
+Ollama Local LLM
+    ↓
+Human-readable Explanation
+
+## Next Steps
+
+- Improve explanation quality.
+- Reduce analysis latency.
+- Explore on-demand explanations instead of automatic generation.
+
+# Day 13 — PDF Processing & On-Demand AI Explanations
+
+Date: 2026-07-12
+
+## Completed
+
+- Implemented PDF upload functionality in the React frontend.
+- Added backend support for multipart file uploads using FastAPI.
+- Integrated PDF text extraction using PyPDF.
+- Built a PDF analysis pipeline using extracted clauses.
+- Added support for tracking clause page numbers during extraction.
+- Connected PDF upload results with the existing risk analysis engine.
+- Successfully integrated Ollama for local AI-powered explanations.
+- Refactored AI explanations from automatic generation to an on-demand model.
+- Added an "Explain with AI" button for each detected risk.
+- Connected the frontend explain button to the backend explanation endpoint.
+- Implemented frontend caching to avoid regenerating explanations for the same risk.
+- Improved application responsiveness by separating deterministic analysis from LLM inference.
+
+## Challenges
+
+- Resolved issues with virtual environment activation and package installation.
+- Fixed import errors caused by project restructuring.
+- Corrected duplicate function definitions in `pdf_loader.py`.
+- Fixed premature `return` statements that caused incomplete PDF processing.
+- Resolved React component crashes caused by undefined variables such as `Icon`, `index`, and stale references.
+- Fixed mismatches between frontend expectations and backend response formats.
+- Corrected page metadata handling during PDF analysis.
+- Resolved FastAPI upload errors caused by unsupported arguments passed to the risk engine.
+
+## Decisions
+
+- Keep rule-based permission detection as the primary analysis mechanism.
+- Use Ollama only when users explicitly request additional context.
+- Prioritize responsiveness and instant results over automatic AI generation.
+- Keep all LLM inference local to preserve privacy and eliminate API costs.
+- Store page numbers separately from risk generation logic to maintain modularity.
+
+## Final Architecture
+
+Text Input / PDF Upload
+        ↓
+Clause Splitter
+        ↓
+Permission Detector
+        ↓
+Risk Engine
+        ↓
+Frontend Risk Cards
+        ↓
+Optional "Explain with AI"
+        ↓
+Ollama Local LLM
+
+## Current Features
+
+- Text policy analysis
+- PDF policy analysis
+- Risk categorization (High, Medium, Low)
+- Evidence extraction
+- On-demand AI explanations
+- Local LLM inference
+- Dynamic summary cards
+- Multi-input frontend interface
+
+## Next Steps
+
+- Implement URL analysis support.
+- Display page numbers directly in risk cards.
+- Add PDF highlighting for detected clauses.
+- Structure AI explanations into:
+  - Why flagged
+  - Commonness
+  - User impact
+  - Recommendation
+- Begin browser extension integration.
+
+## Progress Update
+
+SentinelAI has evolved from a rule-based privacy policy analyzer into a hybrid AI application combining deterministic risk detection with local LLM reasoning while maintaining fast response times and user privacy.

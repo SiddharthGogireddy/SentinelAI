@@ -30,7 +30,10 @@ function InputCard({
                 accept=".pdf"
                 id="pdf-upload"
                 className="hidden"
-                onChange={(e) => onPDFUpload(e.target.files[0])}
+                onChange={(e) => {
+    console.log("Selected file:", e.target.files[0]);
+    onPDFUpload(e.target.files[0]);
+}}
             />
 
             {/* Tabs */}
