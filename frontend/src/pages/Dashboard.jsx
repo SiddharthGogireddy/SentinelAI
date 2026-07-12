@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { analyzeText } from "../services/api";
+import { analyzeText,uploadPDF } from "../services/api";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import InputCard from "../components/InputCard";
@@ -16,6 +16,7 @@ function Dashboard() {
         medium: 0,
         low: 0,
     });
+    
     async function handleAnalyze() {
     if (!text.trim()) return;
 
@@ -33,6 +34,30 @@ function Dashboard() {
         setLoading(false);
     }
 }
+    async function handlePDF(file) {
+
+        if (!file) return;
+
+        setLoading(true);
+
+        try {
+
+            const response = await uploadPDF(file);
+
+            setResults(response.data.results);
+            setSummary(response.data.summary);
+
+        } catch (error) {
+
+            console.error(error);
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#07130F] via-[#0B1D18] to-[#111827] text-white relative overflow-hidden">
 
@@ -61,6 +86,7 @@ function Dashboard() {
     setText={setText}
     loading={loading}
     onAnalyze={handleAnalyze}
+    onPDFUpload={handlePDF}
 />
 
                     <SummaryCards summary={summary} />

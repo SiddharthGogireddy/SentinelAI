@@ -12,7 +12,7 @@ class AnalyzeRequest(BaseModel):
 
 
 @router.post("/analyze")
-def analyze(request: AnalyzeRequest):
+async def analyze(request: AnalyzeRequest):
     """
     Analyze Terms of Service or Privacy Policy text.
     """

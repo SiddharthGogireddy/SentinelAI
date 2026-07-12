@@ -1,31 +1,60 @@
+from io import BytesIO
 from pypdf import PdfReader
 
+from backend.preprocess.clause_splitter import split_into_clauses
 
-def extract_pdf_text(pdf_path: str) -> str:
+async def extract_pdf_clauses(file):
     """
-    Extracts text from a PDF file.
+    Extract clauses and their page numbers from an uploaded PDF.
     """
 
-    reader = PdfReader(pdf_path)
+    contents = await file.read()
 
-    text = ""
+    pdf_stream = BytesIO(contents)
 
-    for page in reader.pages:
-        page_text = page.extract_text()
+    reader = PdfReader(pdf_stream)
 
-        if page_text:
-            text += page_text + "\n"
+    clauses_with_pages = []
 
-    return text
+    for page_number, page in enumerate(reader.pages, start=1):
 
+        page_text = page.extract_text() or ""
 
-if __name__ == "__main__":
-    pdf_path = "sample.pdf"
+        clauses = split_into_clauses(page_text)
 
-    try:
-        extracted_text = extract_pdf_text(pdf_path)
+        for clause in clauses:
 
-        print(extracted_text[:1000])
+            clauses_with_pages.append({
+                "clause": clause,
+                "page": page_number
+            })
 
-    except FileNotFoundError:
-        print("PDF file not found.")
+    return clauses_with_pages
+
+async def extract_pdf_clauses(file):
+
+    contents = await file.read()
+
+    pdf_stream = BytesIO(contents)
+
+    reader = PdfReader(pdf_stream)
+
+    clauses_with_pages = []
+
+    for page_number, page in enumerate(reader.pages, start=1):
+
+        page_text = page.extract_text() or ""
+
+        clauses = split_into_clauses(page_text)
+
+        for item in clauses:
+
+            if isinstance(item, dict):
+                clause = item["clause"]
+                page = item["page"]
+        else:
+            clause = item
+            page = None
+
+            
+    return clauses_with_pages

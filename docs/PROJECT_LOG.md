@@ -213,3 +213,145 @@ Day 2 Completed
 - Connect the frontend to the `/api/analyze` endpoint.
 - Display analysis results using reusable UI components.
 - Improve clause splitting for multi-sentence pasted text.
+# Day 7 — Frontend Foundation & Dashboard Setup
+
+Date: 2026-07-04
+
+## Completed
+
+- Created the React frontend using Vite.
+- Integrated Tailwind CSS into the frontend project.
+- Built the initial dashboard layout.
+- Created reusable UI components:
+  - Navbar
+  - Hero
+  - InputCard
+  - SummaryCards
+  - RiskList
+- Implemented the initial glassmorphism design system.
+- Added the emerald security/privacy color theme.
+- Connected the frontend project structure with the backend API architecture.
+
+## Challenges
+
+- Resolved Tailwind CSS configuration issues with Vite.
+- Fixed missing dependency issues including Axios and Lucide React.
+- Solved import path problems after restructuring component folders.
+- Adjusted frontend styling after the initial blocky design looked too generic.
+
+## Decisions
+
+- Use a glassmorphism-based UI instead of a traditional card layout.
+- Keep the dashboard component-driven for easier feature additions.
+- Use Tailwind utility classes instead of custom CSS files where possible.
+- Maintain a consistent privacy/security visual theme throughout the application.
+
+## Next Steps
+
+- Connect the frontend to the backend API.
+- Replace hardcoded data with live API responses.
+- Add loading states during analysis.
+- Implement dynamic risk summaries and result cards.
+# Day 8 — Frontend Backend Integration
+
+Date: 2026-07-05
+
+## Completed
+
+- Connected the React frontend with the FastAPI backend.
+- Integrated Axios for API communication.
+- Connected the Analyze button to the `/api/analyze` endpoint.
+- Implemented dynamic risk summaries.
+- Implemented dynamic risk cards.
+- Replaced hardcoded frontend data with backend responses.
+- Added loading states during analysis.
+- Successfully completed the first end-to-end analysis workflow.
+
+## Challenges
+
+- Fixed multiple React prop passing issues.
+- Resolved state update bugs preventing UI refreshes.
+- Fixed hardcoded summary values causing incorrect outputs.
+- Corrected API response handling after backend response structure changes.
+
+## Decisions
+
+- Keep backend responses standardized using:
+  ```json
+  {
+      "success": true,
+      "data": {}
+  }
+
+---
+
+```text
+# Day 9 — PDF Upload & Document Analysis
+
+Date: 2026-07-06
+
+## Completed
+
+- Added PDF upload support to the backend.
+- Created the `/api/upload` endpoint.
+- Integrated `python-multipart` for file uploads.
+- Implemented PDF text extraction using `pypdf`.
+- Connected PDF uploads to the existing analysis pipeline.
+- Added frontend PDF upload support.
+- Successfully analyzed uploaded privacy policy PDFs.
+
+## Challenges
+
+- Resolved FastAPI multipart dependency errors.
+- Fixed module import issues after introducing upload routes.
+- Refactored the PDF loader to work with FastAPI `UploadFile`.
+- Corrected frontend upload callback issues caused by prop naming mismatches.
+
+## Decisions
+
+- Reuse the existing analysis pipeline for PDFs instead of creating a separate workflow.
+- Keep uploaded files in memory using `BytesIO`.
+- Continue using rule-based permission detection for consistency across input types.
+
+## Next Steps
+
+- Add source evidence for every detected risk.
+- Attach triggering clauses to each alert.
+- Improve frontend presentation of analysis results.
+- Begin implementing multiple analysis modes.
+# Day 10 — Evidence Tracking & Multi-Mode Interface
+
+Date: 2026-07-07
+
+## Completed
+
+- Added evidence tracking to the risk engine.
+- Attached triggering clauses to generated alerts.
+- Displayed evidence directly in frontend risk cards.
+- Added multiple analysis modes:
+  - Paste Text
+  - Upload PDF
+  - Analyze URL
+- Implemented interactive mode switching in the frontend.
+- Improved dashboard responsiveness and usability.
+- Continued refining the glassmorphism interface.
+
+## Challenges
+
+- Fixed React hook placement issues.
+- Resolved state synchronization problems between input modes.
+- Corrected frontend callback and prop casing issues.
+- Refactored the alert generation pipeline to support evidence tracking.
+
+## Decisions
+
+- Store evidence directly inside alert objects.
+- Maintain a single analysis pipeline for all input types.
+- Prepare the architecture for future page-number tracking and PDF highlighting.
+
+## Next Steps
+
+- Integrate local LLM explanations using Ollama.
+- Add page number support for PDF analysis.
+- Implement PDF highlighting using PyMuPDF.
+- Build URL-based privacy policy analysis.

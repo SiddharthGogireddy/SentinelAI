@@ -21,6 +21,7 @@ function RiskList({ results }) {
     }
 
     return (
+        
         <div className="space-y-4">
 
             {results.flatMap(result =>
@@ -61,9 +62,28 @@ function RiskList({ results }) {
                                             {alert.message}
                                         </p>
                                     </div>
+                                    {alert.evidence && (
+    <div className="
+        mt-3
+        rounded-xl
+        border border-white/5
+        bg-black/20
+        p-3
+    ">
+        <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">
+            Evidence
+        </p>
+
+        <p className="text-sm italic text-slate-300">
+            "{alert.evidence}"
+        </p>
+    </div>
+)}
 
                                 </div>
-
+                                <p className="mt-3 text-sm italic text-slate-400">
+    "{alert.evidence}"
+</p>
                                 <span
                                     className={`rounded-full px-4 py-1 text-sm font-semibold ${
                                         alert.level === "High"
