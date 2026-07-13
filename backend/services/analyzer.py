@@ -3,7 +3,7 @@ from backend.preprocess.clause_splitter import split_into_clauses
 from backend.annotation.label_suggester import suggest_labels
 from backend.risk.risk_engine import build_alert
 
-def analyze_text(text: str) -> dict:
+def analyze_text(text: str, source= None) -> dict:
     """
     Analyze plain text and return detected permissions and risks.
     """
@@ -36,7 +36,7 @@ def analyze_text(text: str) -> dict:
 
         results.append({
             "clause": clause,
-            
+            "source": source,
             "labels": labels,
             "alerts": alerts
             

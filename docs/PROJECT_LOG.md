@@ -560,4 +560,36 @@ Ollama Local LLM
 
 ## Progress Update
 
-SentinelAI has evolved from a rule-based privacy policy analyzer into a hybrid AI application combining deterministic risk detection with local LLM reasoning while maintaining fast response times and user privacy.
+SentinelAI has evolved from a rule-based privacy policy analyzer into a hybrid AI application combining deterministic risk detection with local LLM reasoning while maintaining fast response times and user privacy.# # 
+# Day 14 — Advanced URL Extraction
+
+Date: 2026-07-13
+
+## Completed
+
+- Added URL analysis capability to SentinelAI.
+- Implemented frontend URL input flow.
+- Added backend URL extraction endpoint.
+- Integrated URL analysis into the existing analyzer pipeline.
+- Tested real-world privacy policies using Discord Privacy Policy.
+- Identified false positives caused by webpage navigation content.
+- Evaluated production-grade extraction approaches.
+
+## Challenges
+
+- Entire webpages were being treated as a single clause.
+- Navigation menus generated numerous false positives.
+- Traditional BeautifulSoup extraction was insufficient for privacy policies.
+
+## Decisions
+
+- Adopt Trafilatura for webpage extraction.
+- Keep the clause-based risk engine unchanged.
+- Continue using local LLM explanations through Ollama.
+
+## Next Steps
+
+- Add clause source references.
+- Improve clause splitting.
+- Introduce retrieval-based context selection for LLM explanations.
+- Begin work on browser extension integration.

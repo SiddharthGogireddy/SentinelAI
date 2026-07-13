@@ -1,12 +1,15 @@
 import { FileText, Upload, Globe } from "lucide-react";
 import { useState } from "react";
-
+import { handlePDF,handleAnalyze } from "../services/api";
 function InputCard({
     text,
     setText,
+    url,
+    setUrl,
     loading,
     onAnalyze,
     onPDFUpload,
+    onURLAnalyze,
 }) {
 
     const [mode, setMode] = useState("text");
@@ -22,7 +25,15 @@ function InputCard({
                 p-6
             "
         >
-
+            <InputCard
+    text={text}
+    setText={setText}
+    url={url}
+    setUrl={setUrl}
+    loading={loading}
+    onAnalyze={handleAnalyze}
+    onPDFUpload={handlePDF}
+/>
             {/* Hidden PDF Input */}
 
             <input
@@ -35,7 +46,23 @@ function InputCard({
     onPDFUpload(e.target.files[0]);
 }}
             />
-
+            <input
+    type="text"
+    value={url}
+    onChange={(e) => setUrl(e.target.value)}
+    placeholder="https://example.com/privacy"
+    className="
+        w-full
+        rounded-2xl
+        border border-white/10
+        bg-black/20
+        p-5
+        text-white
+        placeholder:text-slate-500
+        outline-none
+        focus:border-emerald-400
+    "
+/>
             {/* Tabs */}
 
             <div className="flex gap-3 mb-6">
@@ -141,22 +168,52 @@ function InputCard({
             {/* URL MODE */}
 
             {mode === "url" && (
-                <input
-                    type="text"
-                    placeholder="https://example.com/privacy"
-                    className="
-                        w-full
-                        rounded-2xl
-                        border border-white/10
-                        bg-black/20
-                        p-5
-                        text-white
-                        placeholder:text-slate-500
-                        outline-none
-                        focus:border-emerald-400
-                    "
-                />
-            )}
+    <div className="space-y-4">
+
+        <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://example.com/privacy"
+            className="
+                w-full
+                rounded-2xl
+                border border-white/10
+                bg-black/20
+                p-5
+                text-white
+                placeholder:text-slate-500
+                outline-none
+                focus:border-emerald-400
+            "
+        />
+
+        <div className="flex justify-center">
+
+            <button
+                onClick={onURLAnalyze}
+                disabled={loading}
+                className="
+                    rounded-xl
+                    bg-emerald-500
+                    hover:bg-emerald-400
+                    disabled:opacity-50
+                    text-slate-900
+                    font-semibold
+                    px-8 py-3
+                    transition-all
+                    duration-300
+                "
+            >
+                {loading
+                    ? "Analyzing..."
+                    : "Analyze URL"}
+            </button>
+
+        </div>
+
+    </div>
+)}
 
             {/* Analyze Button */}
 

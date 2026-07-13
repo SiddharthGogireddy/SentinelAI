@@ -4,7 +4,7 @@ from backend.api.upload import router as upload_router
 from backend.api.explain import router as explain_router
 
 from backend.api.analyze import router as analyze_router
-
+from backend.api.url import router as url_router
 app = FastAPI(
     title="SentinelAI API",
     version="1.0.0"
@@ -23,8 +23,7 @@ app.include_router(analyze_router, prefix="/api")
 app.include_router(upload_router, prefix="/api")
 app.include_router(explain_router, prefix="/api")
 
-@app.get("/")
-def home():
-    return {
-        "message": "SentinelAI Backend Running"
-    }
+app.include_router(
+    url_router,
+    prefix="/api"
+)

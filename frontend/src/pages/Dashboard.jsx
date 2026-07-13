@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { analyzeText,uploadPDF } from "../services/api";
+import { analyzeText,uploadPDF,analyzeURL } from "../services/api";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import InputCard from "../components/InputCard";
@@ -7,7 +7,7 @@ import SummaryCards from "../components/SummaryCards";
 import RiskList from "../components/RiskList";
 
 function Dashboard() {
-
+    const [url, setUrl] = useState("");
     const [text, setText] = useState("");
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState([]);
@@ -16,6 +16,8 @@ function Dashboard() {
         medium: 0,
         low: 0,
     });
+    
+    
     
     async function handleAnalyze() {
     if (!text.trim()) return;
@@ -57,6 +59,29 @@ function Dashboard() {
 
         }
     }
+    async function handleURL() {
+
+    if (!url.trim()) return;
+
+    setLoading(true);
+
+    try {
+
+        const response = await analyzeURL(url);
+
+        setResults(response.data.results);
+        setSummary(response.data.summary);
+
+    } catch (error) {
+
+        console.error(error);
+
+    } finally {
+
+        setLoading(false);
+
+    }
+}
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#07130F] via-[#0B1D18] to-[#111827] text-white relative overflow-hidden">
@@ -87,6 +112,9 @@ function Dashboard() {
     loading={loading}
     onAnalyze={handleAnalyze}
     onPDFUpload={handlePDF}
+    url={url}
+    setUrl={setUrl}
+    onURLAnalyze={handleURL}
 />
 
                     <SummaryCards summary={summary} />

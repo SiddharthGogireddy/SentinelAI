@@ -99,7 +99,7 @@ function RiskList({ results }) {
                                 </div>
 
                             </div>
-
+                            
                             <span
                                 className={`rounded-full px-4 py-1 text-sm font-semibold ${
                                     alert.level === "High"
@@ -125,6 +125,32 @@ function RiskList({ results }) {
                                 </p>
                             </div>
                         )}
+                        {result.page && (
+    <div className="
+        rounded-xl
+        border border-purple-500/20
+        bg-purple-500/5
+        p-3
+    ">
+        <p className="
+            text-xs
+            uppercase
+            tracking-wider
+            text-purple-300
+        ">
+            Found On
+        </p>
+
+        <p className="text-sm text-slate-300">
+            Page {result.page}
+        </p>
+    </div>
+)}
+                        {result.source && (
+    <div className="text-xs text-slate-500">
+        Source: {result.source}
+    </div>
+)}
 
                        
                             <div className="flex justify-start">

@@ -11,6 +11,13 @@ export async function analyzeText(text) {
 
     return response.data;
 }
+export async function analyzeURL(url) {
+    const response = await API.post(
+        "/url",
+        { url }
+    );
+    return response.data;
+}
 export async function uploadPDF(file) {
     const formData = new FormData();
 
