@@ -69,9 +69,11 @@ SentinelAI separates deterministic analysis from AI-generated guidance. Permissi
 
 ## Project Status
 
-🚧 **Currently in development**
+ **In active development**
 
-The core analysis pipeline is functional, while additional features such as advanced document retrieval, dashboard improvements, and deployment are under development.
+Core document analysis, permission detection, risk assessment, and AI-assisted guidance are implemented. Additional features such as RAG-based document chat, browser extension support, and deployment are planned.
+
+
 
 ## Current Pipeline
 
