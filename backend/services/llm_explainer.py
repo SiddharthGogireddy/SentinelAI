@@ -1,40 +1,27 @@
-import requests
+prompt = f"""
+You are a privacy and security expert.
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "llama3:8b"
-
-
-def explain_clause(clause: str, labels: list[str]) -> str:
-
-    prompt = f"""
-You are an AI privacy policy analyst.
+Analyze this privacy policy clause:
 
 Clause:
 {clause}
 
-Detected permissions:
-{", ".join(labels)}
+Detected Permissions:
+{', '.join(labels)}
 
-Explain:
-1. Why this permission was flagged.
-2. Whether this permission is common.
-3. What users should be aware of.
+Return the response in exactly this format:
 
-Respond in less than 80 words.
+Why Flagged:
+<response>
+
+Commonness:
+<response>
+
+User Impact:
+<response>
+
+Recommendation:
+<response>
+
+Keep each section concise and user-friendly.
 """
-
-    response = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": MODEL,
-            "prompt": prompt,
-            "stream": False,
-        },
-        timeout=60,
-    )
-
-    response.raise_for_status()
-
-    return response.json()["response"].strip()
-
-

@@ -1,7 +1,7 @@
 import { Shield } from "lucide-react";
 import { explainRisk } from "../services/api";
 import { useState } from "react";
-function RiskList({ results }) {
+function RiskList({ results, uploadedPDF, onDownload }) {
     const [explanations, setExplanations] = useState({});
     const [loadingExplanation, setLoadingExplanation] = useState({});
     async function handleExplain(clause, labels, key) {
@@ -181,6 +181,25 @@ function RiskList({ results }) {
         ? "Regenerate Explanation"
         : "Explain with AI"}
 </button>
+{uploadedPDF && results.length > 0 && (
+    <div className="flex justify-center">
+        <button
+            onClick={onDownload}
+            className="
+                rounded-xl
+                bg-red-500
+                px-6
+                py-3
+                font-semibold
+                text-white
+                hover:bg-red-400
+                transition
+            "
+        >
+            Download Highlighted PDF
+        </button>
+    </div>
+)}
 {explanations[index] && (
     <div className="
         mt-4

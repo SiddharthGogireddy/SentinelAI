@@ -18,6 +18,29 @@ export async function analyzeURL(url) {
     );
     return response.data;
 }
+export async function downloadHighlightedPDF(file) {
+
+    const formData = new FormData();
+
+    formData.append(
+        "file",
+        file
+    );
+
+    const response = await API.post(
+        "/highlight",
+        formData,
+        {
+            responseType: "blob",
+            headers: {
+                "Content-Type":
+                    "multipart/form-data"
+            }
+        }
+    );
+
+    return response.data;
+}
 export async function uploadPDF(file) {
     const formData = new FormData();
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { analyzeText,uploadPDF,analyzeURL } from "../services/api";
+import { analyzeText,uploadPDF,analyzeURL,downloadHighlightedPDF } from "../services/api";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import InputCard from "../components/InputCard";
@@ -16,7 +16,7 @@ function Dashboard() {
         medium: 0,
         low: 0,
     });
-    
+    const [uploadedPDF, setUploadedPDF] = useState(null);
     
     
     async function handleAnalyze() {
@@ -41,13 +41,14 @@ function Dashboard() {
         if (!file) return;
 
         setLoading(true);
-
+        setUploadedPDF(file);
         try {
             console.log("Uploading file:", file);
             const response = await uploadPDF(file);
             console.log(JSON.stringify(response, null, 2));
             setResults(response.data.results);
             setSummary(response.data.summary);
+            
 
         } catch (error) {
 
@@ -59,6 +60,27 @@ function Dashboard() {
 
         }
     }
+    async function handleDownload() {
+
+    if (!uploadedPDF) return;
+
+    const blob =
+        await downloadHighlightedPDF(
+            uploadedPDF
+        );
+
+    const url =
+        window.URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+    link.download =
+        "highlighted_policy.pdf";
+
+    link.click();
+}
     async function handleURL() {
 
     if (!url.trim()) return;
@@ -115,6 +137,8 @@ function Dashboard() {
     url={url}
     setUrl={setUrl}
     onURLAnalyze={handleURL}
+    uploadedPDF={uploadedPDF}
+    onDownload={handleDownload}
 />
 
                     <SummaryCards summary={summary} />
